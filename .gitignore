@@ -10,3 +10,5 @@
 .externalNativeBuild
 .tags*
 .cxx/
+.sdkmanrc
+/.vscode
