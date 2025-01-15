@@ -1,0 +1,27 @@
+{
+    // 1) Make sure the Java extension uses your system’s Java 11 instead of embedded Java 17.
+    "java.jdt.ls.java.home": "/home/verlyn13/.sdkman/candidates/java/11.0.25-tem",
+  
+    // 2) Explicitly define your available runtime as JavaSE-11 and mark it default.
+    //    (Useful if you have multiple Java versions installed.)
+    "java.configuration.runtimes": [
+      {
+        "name": "JavaSE-11",
+        "path": "/home/verlyn13/.sdkman/candidates/java/11.0.25-tem",
+        "default": true
+      }
+    ],
+  
+    // 3) Tell the Java extension to run Gradle with your Java 11 home instead of the embedded JRE.
+    "java.import.gradle.java.home": "/home/verlyn13/.sdkman/candidates/java/11.0.25-tem",
+  
+    // 4) Enable Gradle wrapper usage if you have a local gradlew script in the project.
+    "java.import.gradle.wrapper.enabled": true,
+  
+    // 5) Always use Gradle daemon (optional but generally recommended).
+    "java.import.gradle.daemon.alwaysUse": true,
+  
+    // 6) Automatically refresh IntelliSense/config when Gradle or project files change.
+    "java.configuration.updateBuildConfiguration": "interactive"
+  }
+  
