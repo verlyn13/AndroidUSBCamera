@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion rootProject.ext.versionCompiler  // instead of 31
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 31
-        versionCode 2
-        versionName "1.0.1"
+        minSdkVersion rootProject.ext.minSdkVersion    // already 19
+        targetSdkVersion rootProject.ext.versionTarget // instead of 31
+        versionCode rootProject.ext.versionCode        // instead of 2
+        versionName rootProject.ext.versionNameString  // instead of "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -47,10 +47,10 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation "androidx.core:core-ktx:${rootProject.ext.coreKtxVersion}"
+    implementation "androidx.appcompat:appcompat:${rootProject.ext.androidXVersion}"
+    implementation "com.google.android.material:material:${rootProject.ext.materialVersion}"
+    testImplementation "junit:junit:${rootProject.ext.junitVersion}"
+    androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.androidxTestExtJunit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.androidxTestEspresso}"
 }
