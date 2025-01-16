@@ -6,6 +6,9 @@ android {
 	compileSdkVersion rootProject.ext.versionCompiler
 	buildToolsVersion rootProject.ext.versionBuildTool
 
+	// Add this line:
+    ndkVersion "21.4.7075529"
+
 	compileOptions {
 		sourceCompatibility rootProject.ext.javaSourceCompatibility
 		targetCompatibility rootProject.ext.javaTargetCompatibility
@@ -38,19 +41,32 @@ tasks.withType(JavaCompile) {
 }
 
 String getNdkBuildPath() {
-	def ndkBuildingDir = System.getenv("NDK_HOME")
-	if (ndkBuildingDir==null || ndkBuildingDir.isEmpty()) {
-		Properties properties = new Properties()
-		properties.load(project.rootProject.file('local.properties').newDataInputStream())
-		ndkBuildingDir = properties.getProperty("ndk.dir")
-	}
-	def ndkBuildPath = ndkBuildingDir
-	if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-		ndkBuildPath = ndkBuildingDir + '/ndk-build.cmd'
-	} else {
-		ndkBuildPath = ndkBuildingDir + '/ndk-build'
-	}
-	return ndkBuildPath
+    def ndkBuildingDir = null
+    
+    // First try to get the NDK dir from the project's NDK version setting
+    if (android.ndkVersion != null) {
+        ndkBuildingDir = android.getSdkDirectory().toString() + "/ndk/" + android.ndkVersion
+    }
+    
+    // Fallback to environment variable
+    if (ndkBuildingDir==null || ndkBuildingDir.isEmpty()) {
+        ndkBuildingDir = System.getenv("NDK_HOME")
+    }
+    
+    // Last resort: check local.properties
+    if (ndkBuildingDir==null || ndkBuildingDir.isEmpty()) {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        ndkBuildingDir = properties.getProperty("ndk.dir")
+    }
+    
+    def ndkBuildPath = ndkBuildingDir
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        ndkBuildPath = ndkBuildingDir + '/ndk-build.cmd'
+    } else {
+        ndkBuildPath = ndkBuildingDir + '/ndk-build'
+    }
+    return ndkBuildPath
 }
 
 task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {

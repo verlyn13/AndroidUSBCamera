@@ -6,6 +6,9 @@ plugins {
 android {
     compileSdkVersion rootProject.ext.versionCompiler  // instead of 31
 
+    // Add this line:
+    ndkVersion rootProject.ext.ndkVersion
+
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion    // already 19
         targetSdkVersion rootProject.ext.versionTarget // instead of 31
