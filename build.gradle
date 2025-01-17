@@ -1,43 +1,48 @@
+// --------------------------------------------
 // Top-level build file
+// --------------------------------------------
 buildscript {
+    // ----------------------------------------
+    // Repositories for Gradle & Plugins
+    // ----------------------------------------
     repositories {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
     }
+
+    // ----------------------------------------
+    // Buildscript Dependencies
+    // ----------------------------------------
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.4"  // Keep existing version for now
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"  // Keep existing version for now
+        // Last stable AGP that works well with Gradle 7.6.3
+        classpath "com.android.tools.build:gradle:7.4.2"
+
+        // Higher Kotlin version that's still compatible with AGP 7.4.2
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20"
+
+        // We'll remove this in the KTS migration
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
 
-// Remove allprojects block since repositories are in settings.gradle
-
+// --------------------------------------------
+// Global "clean" Task
+// --------------------------------------------
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+// --------------------------------------------
+// Legacy ext block
+// (Used until everything is migrated to TOML)
+// --------------------------------------------
 ext {
-    androidXVersion = '1.3.1'
     versionCompiler = 29
     versionTarget = 27
-    minSdkVersion = 19
-    versionCode = 126
-    versionNameString = '3.3.3'
     javaSourceCompatibility = JavaVersion.VERSION_1_8
     javaTargetCompatibility = JavaVersion.VERSION_1_8
-    supportLibVersion = '27.1.1'
-    ndkVersion = '21.0.6113669'
-    versionBuildTool = '29.0.3'
-    kotlinCoreVersion = '1.3.2'
-    coreKtxVersion = '1.5.0'
-    androidxTestExtJunit = '1.1.2'    
-    androidxTestEspresso = '3.3.0'
-    junitVersion = '4.13.2'
     kotlinCoroutines = '1.3.9'
-    materialVersion = '1.3.0'
-    constraintlayoutVersion = '2.0.4'
     lifecycle_version = '2.2.0'
     quick_version= '2.9.50'
     dialog_version= '3.2.1'

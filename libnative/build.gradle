@@ -4,16 +4,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.ext.versionCompiler  // instead of 31
-
-    // Add this line:
-    ndkVersion rootProject.ext.ndkVersion
+    compileSdkVersion libs.versions.compileSdk.get().toInteger()
+    ndkVersion libs.versions.ndkVersion.get()
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion    // already 19
-        targetSdkVersion rootProject.ext.versionTarget // instead of 31
-        versionCode rootProject.ext.versionCode        // instead of 2
-        versionName rootProject.ext.versionNameString  // instead of "1.0.1"
+        minSdkVersion libs.versions.minSdk.get().toInteger()
+        targetSdkVersion libs.versions.targetSdk.get().toInteger()
+        versionCode libs.versions.versionCode.get().toInteger()
+        versionName libs.versions.versionName.get()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -50,10 +48,10 @@ android {
 
 dependencies {
 
-    implementation "androidx.core:core-ktx:${rootProject.ext.coreKtxVersion}"
-    implementation "androidx.appcompat:appcompat:${rootProject.ext.androidXVersion}"
-    implementation "com.google.android.material:material:${rootProject.ext.materialVersion}"
-    testImplementation "junit:junit:${rootProject.ext.junitVersion}"
-    androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.androidxTestExtJunit}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.androidxTestEspresso}"
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.material
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.test.ext.junit
+    androidTestImplementation libs.androidx.test.espresso
 }

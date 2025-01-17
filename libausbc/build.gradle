@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.ext.versionCompiler
+    compileSdkVersion libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.versionTarget
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionNameString
+        minSdkVersion libs.versions.minSdk.get().toInteger()
+        targetSdkVersion libs.versions.targetSdk.get().toInteger()
+        versionCode libs.versions.versionCode.get().toInteger()
+        versionName libs.versions.versionName.get()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -35,11 +35,10 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:${androidXVersion}"
-    implementation "androidx.constraintlayout:constraintlayout:${constraintlayoutVersion}"
-    implementation "com.google.android.material:material:${materialVersion}"
-    api 'com.elvishew:xlog:1.11.0'
-//    implementation fileTree("libs")
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.material
+    implementation libs.xlog
 
     implementation project(path: ':libuvc')
     api project(path: ':libnative')

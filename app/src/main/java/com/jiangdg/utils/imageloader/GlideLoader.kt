@@ -190,7 +190,7 @@ class GlideLoader<T>(target: T) : ILoader<ImageView> {
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,
-                        target: Target<Bitmap>?,
+                        target: Target<Bitmap>,
                         isFirstResource: Boolean
                     ): Boolean {
                         listener.onLoadedFailed(e)
@@ -198,10 +198,10 @@ class GlideLoader<T>(target: T) : ILoader<ImageView> {
                     }
 
                     override fun onResourceReady(
-                        resource: Bitmap?,
-                        model: Any?,
-                        target: Target<Bitmap>?,
-                        dataSource: DataSource?,
+                        resource: Bitmap,
+                        model: Any,
+                        target: Target<Bitmap>,
+                        dataSource: DataSource,
                         isFirstResource: Boolean
                     ): Boolean {
                         listener.onLoadedSuccess(resource)

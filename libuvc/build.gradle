@@ -3,11 +3,8 @@ apply plugin: 'com.android.library'
 import org.apache.tools.ant.taskdefs.condition.Os
 
 android {
-	compileSdkVersion rootProject.ext.versionCompiler
-	buildToolsVersion rootProject.ext.versionBuildTool
-
-	// Add this line:
-    ndkVersion "21.4.7075529"
+	compileSdkVersion libs.versions.compileSdk.get().toInteger()
+    ndkVersion libs.versions.ndkVersion.get()
 
 	compileOptions {
 		sourceCompatibility rootProject.ext.javaSourceCompatibility
@@ -15,8 +12,8 @@ android {
 	}
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-		targetSdkVersion rootProject.ext.versionTarget
+        minSdkVersion libs.versions.minSdk.get().toInteger()  
+		targetSdkVersion libs.versions.targetSdk.get().toInteger()
     }
 
 	lintOptions {
@@ -69,10 +66,25 @@ String getNdkBuildPath() {
     return ndkBuildPath
 }
 
-task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
-	println('executing ndkBuild')
-	def ndkBuildPath = getNdkBuildPath();
-	commandLine ndkBuildPath, '-j8', '-C', file('src/main').absolutePath
+task ndkBuild(type: Exec) {
+    description = 'Compile JNI source via NDK'
+    
+    // Add incremental build support while keeping original functionality
+    inputs.dir file('src/main/jni')  // Original JNI source directory
+    inputs.files(
+        'src/main/AndroidManifest.xml',
+        'src/main/jni/Android.mk',
+        'src/main/jni/Application.mk'
+    )
+    
+    // Original output directories based on NDK build structure
+    outputs.dir file('src/main/libs')  // Where NDK typically puts the built .so files
+    outputs.dir file('src/main/obj')   // NDK build intermediates
+    
+    // Keep the original command execution exactly as it was
+    println('executing ndkBuild')
+    def ndkBuildPath = getNdkBuildPath();
+    commandLine ndkBuildPath, '-j8', '-C', file('src/main').absolutePath
 }
 
 task ndkClean(type: Exec, description: 'clean JNI libraries') {
@@ -85,7 +97,8 @@ clean.dependsOn 'ndkClean'
 
 dependencies {
     implementation fileTree(dir: new File(buildDir, 'libs'), include: '*.jar')
-	implementation "androidx.appcompat:appcompat:${androidXVersion}"
-	implementation 'com.elvishew:xlog:1.11.0'
-//	implementation project(path: ':libuvccommon')
+    implementation libs.xlog
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.core.ktx
+	
 }
