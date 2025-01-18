@@ -9,6 +9,8 @@ plugins {
 // Android Configuration
 // ----------------------------------
 android {
+    namespace = "com.jiangdg.uvc"
+
     compileSdkVersion libs.versions.compileSdk.get().toInteger()
     ndkVersion libs.versions.ndkVersion.get()
 
@@ -20,6 +22,13 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    // Force the actual compiler to be Java 17
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
     }
 
     // ----------------------------------

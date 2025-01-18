@@ -5,6 +5,8 @@ plugins {
 }
 
 android {
+    namespace "com.jiangdg.ausbc"
+
     compileSdkVersion libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
@@ -17,6 +19,10 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
+    buildFeatures {
+            viewBinding = true
+        }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -27,6 +33,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+    
     kotlinOptions {
         jvmTarget = '1.8'
     }

@@ -3,14 +3,8 @@
 // ----------------------------------
 pluginManagement {
     repositories {
-        // Google's Maven repository with content filtering
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
+        // Google's Maven repository
+        google()  // Remove content filtering for now
         
         // Standard Maven repositories
         mavenCentral()

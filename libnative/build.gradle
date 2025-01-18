@@ -4,6 +4,8 @@ plugins {
 }
 
 android {
+    namespace = "com.jiangdg.natives"
+
     compileSdkVersion libs.versions.compileSdk.get().toInteger()
     ndkVersion libs.versions.ndkVersion.get()
 
@@ -41,6 +43,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+    
     kotlinOptions {
         jvmTarget = '1.8'
     }

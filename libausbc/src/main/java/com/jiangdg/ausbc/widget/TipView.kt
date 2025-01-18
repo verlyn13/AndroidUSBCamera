@@ -45,6 +45,7 @@ class TipView : AppCompatTextView {
         init(context)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun init(context: Context?) {
         hideAnim.addListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {
