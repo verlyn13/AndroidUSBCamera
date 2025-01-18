@@ -1,5 +1,9 @@
+// ----------------------------------
+// Plugin Management
+// ----------------------------------
 pluginManagement {
     repositories {
+        // Google's Maven repository with content filtering
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -7,14 +11,28 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
+        
+        // Standard Maven repositories
         mavenCentral()
         gradlePluginPortal()
-        maven { url "https://jitpack.io" }  // Needed for some original dependencies
+        
+        // JitPack repository for community dependencies
+        maven { url "https://jitpack.io" }
     }
 }
 
+// ----------------------------------
+// Feature Previews
+// ----------------------------------
+enableFeaturePreview('TYPESAFE_PROJECT_ACCESSORS')
+
+// ----------------------------------
+// Dependency Resolution
+// ----------------------------------
 dependencyResolutionManagement {
+    // Enforce repository declarations in central location
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    
     repositories {
         google()
         mavenCentral()
@@ -22,8 +40,14 @@ dependencyResolutionManagement {
     }
 }
 
+// ----------------------------------
+// Project Structure
+// ----------------------------------
+// Root project name
 rootProject.name = "androidusbcamera"
-include ':app'
-include ':libausbc'
-include ':libuvc'
-include ':libnative'
+
+// Include all modules
+include ':app'          // Main application module
+include ':libausbc'     // Android USB camera library
+include ':libuvc'       // UVC library module
+include ':libnative'    // Native code module

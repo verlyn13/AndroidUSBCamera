@@ -6,8 +6,8 @@
 # --------------------------
 # Build Tools & Language Versions
 # --------------------------
-kotlinVersion = "1.9.22"  # Latest stable that works with AGP
-agpVersion = "8.2.2"      # Latest stable
+kotlinVersion = "1.8.20"  # Latest stable that works with AGP
+agpVersion = "7.4.2"      # Latest stable
 buildToolVersion = "29.0.3" 
 javaSourceCompatibility = "1.8"
 javaTargetCompatibility = "1.8"
@@ -31,7 +31,7 @@ lifecycleVersion = "2.2.0"  # revert to 2.2.0 potentially
 # --------------------------
 # NDK / CMake Versions
 # --------------------------
-ndkVersion = "21.0.6113669"  # Keeping original for compatibility
+ndkVersion = "23.1.7779620" # "21.0.6113669"  # Keeping original for compatibility
 cmakeVersion = "3.22.1"      # Latest stable supported by AGP
 
 # --------------------------

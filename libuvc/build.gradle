@@ -1,104 +1,88 @@
-apply plugin: 'com.android.library'
+// ----------------------------------
+// Plugin Configuration
+// ----------------------------------
+plugins {
+    id 'com.android.library'
+}
 
-import org.apache.tools.ant.taskdefs.condition.Os
-
+// ----------------------------------
+// Android Configuration
+// ----------------------------------
 android {
-	compileSdkVersion libs.versions.compileSdk.get().toInteger()
+    compileSdkVersion libs.versions.compileSdk.get().toInteger()
     ndkVersion libs.versions.ndkVersion.get()
 
-	compileOptions {
-		sourceCompatibility rootProject.ext.javaSourceCompatibility
-		targetCompatibility rootProject.ext.javaTargetCompatibility
-	}
+    namespace "com.jiangdg.libuvc"
 
-    defaultConfig {
-        minSdkVersion libs.versions.minSdk.get().toInteger()  
-		targetSdkVersion libs.versions.targetSdk.get().toInteger()
+    // ----------------------------------
+    // Java Compilation Options
+    // ----------------------------------
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-	lintOptions {
-		checkReleaseBuilds false
-		// Or, if you prefer, you can continue to check for errors in release builds,
-		// but continue the build even when errors are found:
-		abortOnError false
-		// The demo app does not have translations.
-		disable 'MissingTranslation'
-	}
+    // ----------------------------------
+    // Default Configuration
+    // ----------------------------------
+    defaultConfig {
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
 
+        // Native build configuration
+        externalNativeBuild {
+            ndkBuild {
+                arguments "NDK_APPLICATION_MK:=src/main/jni/Application.mk"
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+                // Specify output directory to avoid conflicts
+                cFlags "-DANDROID_NDK_HOME=${android.ndkDirectory}"
+            }
+        }
+    }
+
+    // ----------------------------------
+    // Native Build Configuration
+    // ----------------------------------
+    externalNativeBuild {
+        ndkBuild {
+            path "src/main/jni/Android.mk"
+        }
+    }
+
+    // ----------------------------------
+    // Build Types
+    // ----------------------------------
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
-}
 
-tasks.withType(JavaCompile) {
-	compileTask -> compileTask.dependsOn ndkBuild
-}
-
-String getNdkBuildPath() {
-    def ndkBuildingDir = null
-    
-    // First try to get the NDK dir from the project's NDK version setting
-    if (android.ndkVersion != null) {
-        ndkBuildingDir = android.getSdkDirectory().toString() + "/ndk/" + android.ndkVersion
+    // ----------------------------------
+    // Lint Options
+    // ----------------------------------
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+        disable += "MissingTranslation"
     }
-    
-    // Fallback to environment variable
-    if (ndkBuildingDir==null || ndkBuildingDir.isEmpty()) {
-        ndkBuildingDir = System.getenv("NDK_HOME")
+
+    // ----------------------------------
+    // Packaging Options
+    // ----------------------------------
+    packagingOptions {
+        // Handle duplicate .so files
+        pickFirst '**/*.so'
     }
-    
-    // Last resort: check local.properties
-    if (ndkBuildingDir==null || ndkBuildingDir.isEmpty()) {
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        ndkBuildingDir = properties.getProperty("ndk.dir")
-    }
-    
-    def ndkBuildPath = ndkBuildingDir
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        ndkBuildPath = ndkBuildingDir + '/ndk-build.cmd'
-    } else {
-        ndkBuildPath = ndkBuildingDir + '/ndk-build'
-    }
-    return ndkBuildPath
 }
 
-task ndkBuild(type: Exec) {
-    description = 'Compile JNI source via NDK'
-    
-    // Add incremental build support while keeping original functionality
-    inputs.dir file('src/main/jni')  // Original JNI source directory
-    inputs.files(
-        'src/main/AndroidManifest.xml',
-        'src/main/jni/Android.mk',
-        'src/main/jni/Application.mk'
-    )
-    
-    // Original output directories based on NDK build structure
-    outputs.dir file('src/main/libs')  // Where NDK typically puts the built .so files
-    outputs.dir file('src/main/obj')   // NDK build intermediates
-    
-    // Keep the original command execution exactly as it was
-    println('executing ndkBuild')
-    def ndkBuildPath = getNdkBuildPath();
-    commandLine ndkBuildPath, '-j8', '-C', file('src/main').absolutePath
-}
-
-task ndkClean(type: Exec, description: 'clean JNI libraries') {
-	println('executing ndkBuild clean')
-	def ndkBuildPath = getNdkBuildPath();
-	commandLine ndkBuildPath, 'clean', '-C', file('src/main').absolutePath
-}
-
-clean.dependsOn 'ndkClean'
-
+// ----------------------------------
+// Dependencies
+// ----------------------------------
 dependencies {
     implementation fileTree(dir: new File(buildDir, 'libs'), include: '*.jar')
     implementation libs.xlog
     implementation libs.androidx.appcompat
     implementation libs.androidx.core.ktx
-	
 }

@@ -16,16 +16,19 @@ plugins {
  * --------------------------
  */
 android {
+    // Namespace declaration (required for modern Android builds)
+    namespace "com.jiangdg.demo"
+
     // Sets the compile SDK version from libs.versions.toml
-    compileSdkVersion libs.versions.compileSdk.get().toInteger()
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     // --------------------------
     // Default Config
     // --------------------------
     defaultConfig {
         applicationId "com.jiangdg.ausbc"
-        minSdkVersion libs.versions.minSdk.get().toInteger()
-        targetSdkVersion libs.versions.targetSdk.get().toInteger()
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
         versionCode libs.versions.versionCode.get().toInteger()
         versionName libs.versions.versionName.get()
 
@@ -34,7 +37,7 @@ android {
 
         // Restrict NDK ABI filters
         ndk {
-            abiFilters 'armeabi-v7a','arm64-v8a'
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
         }
     }
 
@@ -44,7 +47,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -52,12 +55,12 @@ android {
     // Java / Kotlin Compilation
     // --------------------------
     compileOptions {
-        sourceCompatibility JavaVersion.toVersion(libs.versions.javaSourceCompatibility.get())
-        targetCompatibility JavaVersion.toVersion(libs.versions.javaTargetCompatibility.get())
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.javaSourceCompatibility.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.javaTargetCompatibility.get())
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = libs.versions.javaTargetCompatibility.get()
     }
 
     // --------------------------
@@ -68,22 +71,19 @@ android {
     }
 
     // --------------------------
-    // NDK Version (Optional)
+    // NDK Version
     // --------------------------
-    // Uncomment if needed:
-    // ndkVersion rootProject.ext.ndkVersion
-    // or from TOML:
-    // ndkVersion libs.versions.ndkVersion.get()
+    ndkVersion libs.versions.ndkVersion.get()
 
+    // --------------------------
+    // Lint Configuration
+    // --------------------------
     lint {
         abortOnError = false  // Don't fail the build for lint errors
         checkReleaseBuilds = false  // Don't check for lint errors in release builds
         // Or if you want to be more specific:
         // disable 'ProtectedPermissions'  // Only ignore this specific lint check
     }
-
-    // Add namespace to fix the manifest warning
-    namespace "com.jiangdg.demo"
 }
 
 /*
@@ -92,7 +92,6 @@ android {
  * --------------------------
  */
 dependencies {
-
     // Local JAR dependencies
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
