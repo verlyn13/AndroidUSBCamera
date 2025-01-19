@@ -6,8 +6,8 @@
 # --------------------------
 # Build Tools & Language Versions
 # --------------------------
-kotlinVersion = "1.8.20"  # Latest stable that works with AGP
-agpVersion = "8.0.2"      # Latest stable
+kotlinVersion = "1.9.23"  # Latest stable that works with AGP
+agpVersion = "8.1.0"      # Latest stable
 buildToolVersion = "29.0.3" 
 javaSourceCompatibility = "1.8"
 javaTargetCompatibility = "1.8"
@@ -15,18 +15,18 @@ javaTargetCompatibility = "1.8"
 # --------------------------
 # Android Platform Versions
 # --------------------------
-compileSdk = "29"
+compileSdk = "32"
 targetSdk = "29"
-minSdk = "19"
+minSdk = "21"
 
 # --------------------------
 # AndroidX & Jetpack Versions
 # --------------------------
-androidxVersion = "1.3.1"
-coreKtxVersion = "1.5.0"
-materialVersion = "1.3.0"
-constraintlayoutVersion = "2.0.4"
-lifecycleVersion = "2.2.0"  # revert to 2.2.0 potentially
+androidxVersion = "1.5.0"
+coreKtxVersion = "1.8.0"
+materialVersion = "1.4.0"
+constraintlayoutVersion = "2.1.4" #revert 2.0.4
+lifecycleVersion = "2.5.0"  # revert to 2.2.0 potentially
 
 # --------------------------
 # NDK / CMake Versions

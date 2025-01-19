@@ -33,7 +33,7 @@ android {
         versionName libs.versions.versionName.get()
 
         // Enable multiDex support
-        multiDexEnabled true
+        // multiDexEnabled true
 
         // Restrict NDK ABI filters
         ndk {
@@ -54,13 +54,14 @@ android {
     // --------------------------
     // Java / Kotlin Compilation
     // --------------------------
-    compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(libs.versions.javaSourceCompatibility.get())
-        targetCompatibility = JavaVersion.toVersion(libs.versions.javaTargetCompatibility.get())
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
     }
 
     kotlinOptions {
-        jvmTarget = libs.versions.javaTargetCompatibility.get()
+        jvmTarget = "17"
     }
 
     // --------------------------

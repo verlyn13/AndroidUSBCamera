@@ -18,7 +18,13 @@ package com.jiangdg.ausbc.base
 import android.content.Context
 import android.graphics.SurfaceTexture
 import android.hardware.usb.UsbDevice
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.SurfaceHolder
+import android.view.SurfaceView
+import android.view.TextureView
+import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -43,7 +49,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  *
  * @author Created by jiangdg on 2023/2/3
  */
-abstract class CameraActivity: BaseActivity(), ICameraStateCallBack {
+abstract class CameraActivity: BaseActivity(), ICameraStateCallBack, TextureView.SurfaceTextureListener, SurfaceHolder.Callback {
     private var mCameraView: IAspectRatio? = null
     private var mCameraClient: MultiCameraClient? = null
     private val mCameraMap = hashMapOf<Int, MultiCameraClient.ICamera>()
@@ -173,52 +179,40 @@ abstract class CameraActivity: BaseActivity(), ICameraStateCallBack {
     protected fun getDeviceList() = mCameraClient?.getDeviceList()
 
     private fun handleTextureView(textureView: TextureView) {
-        textureView.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
-            override fun onSurfaceTextureAvailable(
-                surface: SurfaceTexture?,
-                width: Int,
-                height: Int
-            ) {
-                registerMultiCamera()
-            }
-
-            override fun onSurfaceTextureSizeChanged(
-                surface: SurfaceTexture?,
-                width: Int,
-                height: Int
-            ) {
-                surfaceSizeChanged(width, height)
-            }
-
-            override fun onSurfaceTextureDestroyed(surface: SurfaceTexture?): Boolean {
-                unRegisterMultiCamera()
-                return false
-            }
-
-            override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {
-            }
-        }
+        textureView.surfaceTextureListener = this
     }
 
     private fun handleSurfaceView(surfaceView: SurfaceView) {
-        surfaceView.holder.addCallback(object : SurfaceHolder.Callback {
-            override fun surfaceCreated(holder: SurfaceHolder?) {
-                registerMultiCamera()
-            }
+        surfaceView.holder.addCallback(this)
+    }
 
-            override fun surfaceChanged(
-                holder: SurfaceHolder?,
-                format: Int,
-                width: Int,
-                height: Int
-            ) {
-                surfaceSizeChanged(width, height)
-            }
+    override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
+        registerMultiCamera()
+    }
 
-            override fun surfaceDestroyed(holder: SurfaceHolder?) {
-                unRegisterMultiCamera()
-            }
-        })
+    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
+        surfaceSizeChanged(width, height)
+    }
+
+    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
+        unRegisterMultiCamera()
+        return false
+    }
+
+    override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
+        // No implementation needed
+    }
+
+    override fun surfaceCreated(holder: SurfaceHolder) {
+        registerMultiCamera()
+    }
+
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        surfaceSizeChanged(width, height)
+    }
+
+    override fun surfaceDestroyed(holder: SurfaceHolder) {
+        unRegisterMultiCamera()
     }
 
     /**

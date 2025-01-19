@@ -1,0 +1,82 @@
+Type-safe project accessors is an incubating feature.
+> Task :libuvc:preBuild UP-TO-DATE
+> Task :libuvc:preReleaseBuild UP-TO-DATE
+> Task :libuvc:configureNdkBuildRelease[arm64-v8a]
+> Task :libuvc:buildNdkBuildRelease[arm64-v8a]
+> Task :libuvc:configureNdkBuildRelease[armeabi-v7a]
+> Task :libuvc:buildNdkBuildRelease[armeabi-v7a]
+> Task :libuvc:mergeReleaseJniLibFolders
+> Task :libuvc:generateReleaseResValues
+> Task :libuvc:extractDeepLinksForAarRelease
+> Task :libuvc:generateReleaseResources
+> Task :libuvc:mergeReleaseNativType-safe project accessors is an incubating feature.
+> Task :libuvc:preBuild UP-TO-DATE
+> Task :libuvc:preReleaseBuild UP-TO-DATE
+> Task :libuvc:configureNdkBuildRelease[arm64-v8a]
+> Task :libuvc:buildNdkBuildRelease[arm64-v8a]
+> Task :libuvc:configureNdkBuildRelease[armeabi-v7a]
+> Task :libuvc:buildNdkBuildRelease[armeabi-v7a]
+> Task :libuvc:mergeReleaseJniLibFolders
+> Task :libuvc:generateReleaseResValues
+> Task :libuvc:extractDeepLinksForAarRelease
+> Task :libuvc:generateReleaseResources
+> Task :libuvc:mergeReleaseNativeLibs
+> Task :libuvc:packageReleaseResources
+> Task :libuvc:mergeReleaseShaders
+> Task :libuvc:javaPreCompileRelease
+> Task :libuvc:compileReleaseShaders NO-SOURCE
+> Task :libuvc:generateReleaseAssets UP-TO-DATE
+> Task :libuvc:packageReleaseAssets
+> Task :libuvc:prepareReleaseArtProfile
+> Task :libuvc:processReleaseJavaRes NO-SOURCE
+> Task :libuvc:prepareLintJarForPublish
+> Task :libuvc:stripReleaseDebugSymbols
+> Task :libuvc:writeReleaseAarMetadata
+> Task :libuvc:copyReleaseJniLibsProjectAndLocalJars
+> Task :libuvc:parseReleaseLocalResources
+> Task :libuvc:mapReleaseSourceSetPaths
+> Task :libuvc:processReleaseManifest
+> Task :libuvc:mergeReleaseJavaResource
+> Task :libuvc:mergeReleaseResources
+> Task :libuvc:generateReleaseRFile
+> Task :libuvc:extractReleaseAnnotations
+> Task :libuvc:compileReleaseJavaWithJavac
+> Task :libuvc:mergeReleaseGeneratedProguardFiles
+> Task :libuvc:mergeReleaseConsumerProguardFiles
+> Task :libuvc:syncReleaseLibJars
+> Task :libuvc:bundleReleaseAar
+> Task :libuvc:verifyReleaseResources
+> Task :libuvc:assembleRelease
+
+BUILD SUCCESSFUL in 38s
+30 actionable tasks: 30 executed
+eLibs
+> Task :libuvc:packageReleaseResources
+> Task :libuvc:mergeReleaseShaders
+> Task :libuvc:javaPreCompileRelease
+> Task :libuvc:compileReleaseShaders NO-SOURCE
+> Task :libuvc:generateReleaseAssets UP-TO-DATE
+> Task :libuvc:packageReleaseAssets
+> Task :libuvc:prepareReleaseArtProfile
+> Task :libuvc:processReleaseJavaRes NO-SOURCE
+> Task :libuvc:prepareLintJarForPublish
+> Task :libuvc:stripReleaseDebugSymbols
+> Task :libuvc:writeReleaseAarMetadata
+> Task :libuvc:copyReleaseJniLibsProjectAndLocalJars
+> Task :libuvc:parseReleaseLocalResources
+> Task :libuvc:mapReleaseSourceSetPaths
+> Task :libuvc:processReleaseManifest
+> Task :libuvc:mergeReleaseJavaResource
+> Task :libuvc:mergeReleaseResources
+> Task :libuvc:generateReleaseRFile
+> Task :libuvc:extractReleaseAnnotations
+> Task :libuvc:compileReleaseJavaWithJavac
+> Task :libuvc:mergeReleaseGeneratedProguardFiles
+> Task :libuvc:mergeReleaseConsumerProguardFiles
+> Task :libuvc:syncReleaseLibJars
+> Task :libuvc:bundleReleaseAar
+> Task :libuvc:verifyReleaseResources
+> Task :libuvc:assembleRelease
+
+BUILD SUCCESSFUL in 38s
+30 actionable tasks: 30 executed
