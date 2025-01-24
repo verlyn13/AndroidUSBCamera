@@ -6,40 +6,40 @@
 # --------------------------
 # Build Tools & Language Versions
 # --------------------------
-kotlinVersion = "1.9.23"  # Latest stable that works with AGP
-agpVersion = "8.1.0"      # Latest stable
-buildToolVersion = "29.0.3" 
-javaSourceCompatibility = "1.8"
-javaTargetCompatibility = "1.8"
+kotlinVersion = "2.1.0"
+agpVersion = "8.7.3"
+buildToolVersion = "35.0.0"
+javaSourceCompatibility = "17"
+javaTargetCompatibility = "17"
 
 # --------------------------
 # Android Platform Versions
 # --------------------------
-compileSdk = "32"
-targetSdk = "29"
-minSdk = "21"
+compileSdk = "35"
+targetSdk = "35"
+minSdk = "26"
 
 # --------------------------
 # AndroidX & Jetpack Versions
 # --------------------------
-androidxVersion = "1.5.0"
-coreKtxVersion = "1.8.0"
-materialVersion = "1.4.0"
-constraintlayoutVersion = "2.1.4" #revert 2.0.4
-lifecycleVersion = "2.5.0"  # revert to 2.2.0 potentially
+androidxVersion = "1.7.0"
+coreKtxVersion = "1.12.0"
+materialVersion = "1.11.0"
+constraintlayoutVersion = "2.2.0"
+lifecycleVersion = "2.8.7"
 
 # --------------------------
 # NDK / CMake Versions
 # --------------------------
-ndkVersion = "23.1.7779620" # "21.0.6113669"  # Keeping original for compatibility
-cmakeVersion = "3.22.1"      # Latest stable supported by AGP
+ndkVersion = "25.2.9519653"
+cmakeVersion = "3.22.1"
 
 # --------------------------
 # Testing Versions
 # --------------------------
 junitVersion = "4.13.2"
-androidxTestExtJunit = "1.1.2"
-androidxTestEspresso = "3.3.0"
+androidxTestExtJunit = "1.1.5"
+androidxTestEspresso = "3.5.1"
 
 # --------------------------
 # App Versioning
@@ -50,11 +50,11 @@ versionName = "3.3.3"
 # --------------------------
 # Other Libraries / Frameworks
 # --------------------------
-kotlinCoroutines = "1.3.9"       # If you still need this older version
+kotlinCoroutines = "1.7.3"       # If you still need this older version
 buglyVersion = "3.4.4"
 buglyNativeVersion = "3.9.0"
 quickVersion = "2.9.50" 
-dialogVersion = "3.2.1"
+dialogVersion = "3.3.0"
 immersionBarVersion = "3.2.2"
 
 # --------------------------
